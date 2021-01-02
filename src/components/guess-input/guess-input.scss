@@ -1,0 +1,12 @@
+.guess-input {
+    &:focus {outline:0;}
+
+
+    .char-to-guess {
+        font-size: 1.75rem;
+
+        &.focused-char {
+            color: #08C;
+        }
+    }
+}
