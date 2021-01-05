@@ -9,5 +9,5 @@ interface CharToGuessProps {
 export const CharToGuess = (props: CharToGuessProps) => {
     const { focused, value } = props;
 
-    return <span className={`char-to-guess ${focused ? ' focused-char' : ''}`}>{value || '_'} </span>;
+    return <span className={`char-to-guess ${focused ? ' focused-char' : ''}`}>{value || '_'}</span>;
 };

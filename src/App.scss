@@ -1,3 +1,7 @@
+body {
+  background-color: #f0f0f0;
+}
+
 .App {
   text-align: center;
 }
@@ -10,5 +14,15 @@
 .mapboxgl-map {
   height: 400px;
   width: 100%;
+}
+
+.sprite {
+  height: 0;
+  width: 0;
+  position: absolute;
+}
+
+button:focus {
+  outline: 0;
 }
 

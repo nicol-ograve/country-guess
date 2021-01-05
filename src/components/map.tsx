@@ -21,6 +21,7 @@ export const WorldMap = (props: MapProps) => {
     const { selectedCountryId, selectCountry, clearSelectedCountry } = props;
     const [hoveredCountryId, handleCountryHover] = useState<string | undefined>(undefined);
 
+
     const [zoom, setZoom] = useState(0);
     const handleZoomEnd = useCallback((e: Map) => {
         setZoom(e.getZoom());

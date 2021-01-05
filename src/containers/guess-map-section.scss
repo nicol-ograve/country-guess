@@ -1,0 +1,23 @@
+.guess-map-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .guess-title {
+        font-size: 1.125rem;
+    }
+
+    .guess-box {
+
+        width: 400px;
+
+        margin-top: 1rem;
+        border: 1px solid black;
+        padding: 0.5rem;
+
+        .guess-button {
+            margin-top: 1rem;
+        }
+    }
+
+}

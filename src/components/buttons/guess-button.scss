@@ -1,0 +1,15 @@
+@import '../../assets/styles/colors.scss';
+
+.guess-button {
+    cursor: pointer;
+
+    border: 3px solid $color-guess;
+    color: $color-guess;
+    font-weight: bold;
+
+
+    &:hover{
+        color: white;
+        background-color: $color-guess;
+    }
+}

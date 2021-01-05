@@ -34,6 +34,7 @@ module.exports = {
     rules: {
         '@typescript-eslint/ban-ts-comment': 'off',
         '@typescript-eslint/no-empty-interface': 'off',
+        '@typescript-eslint/no-empty-function': 'off',
         "@typescript-eslint/semi": 1,
         'react/prop-types': 'off',
         'react/style-prop-object': 'off',
