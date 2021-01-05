@@ -1,11 +1,14 @@
 import { Button, Dialog, DialogActions, DialogContent } from '@material-ui/core';
+import { observer } from 'mobx-react';
 import React, { useCallback, useState } from 'react';
+import { FlagGuess } from '../../store/models/flag-guess';
 import { GuessButton } from '../buttons/guess-button';
 
 import './flag-guess-input.scss';
 
-interface FlagGuessProps {
+interface FlagGuessInputProps {
     countryCodes: string[];
+    flagGuess: FlagGuess;
 }
 
 
@@ -14,11 +17,14 @@ const EmptyFlag = () => {
 };
 
 
-export const FlagGuess = ({ countryCodes }: FlagGuessProps) => {
+export const FlagGuessInput = observer(({ countryCodes, flagGuess }: FlagGuessInputProps) => {
     const [selectedFlagCountryCode, setSelectedFlag] = useState('');
     const [isPickerShown, setShowPicker] = useState(false);
 
-    const guess = useCallback(() => { }, []);
+    const { isGuessed, isFailed } = flagGuess;
+    console.log('FAIl', isFailed);
+
+    const guess = useCallback(() => { flagGuess.guess(selectedFlagCountryCode); }, []);
     const showPicker = useCallback(() => { setShowPicker(true); }, []);
     const closePicker = useCallback(() => { setShowPicker(false); }, []);
 
@@ -27,7 +33,7 @@ export const FlagGuess = ({ countryCodes }: FlagGuessProps) => {
         setShowPicker(false);
     }, []);
 
-    return <div className='flag-guess guess-box'>
+    return <div className={`flag-guess guess-box${isGuessed ? ' guessed' : ''}${isFailed ? ' failed' : ''}`}>
         <span className='guess-title'>Flag</span>
         <div className='flag-image' onClick={showPicker}>
             {selectedFlagCountryCode ?
@@ -42,7 +48,7 @@ export const FlagGuess = ({ countryCodes }: FlagGuessProps) => {
             onFlagPicked={onFlagPicked}
             onDelete={closePicker} />
     </div>;
-};
+});
 
 interface FlagPickerDialogProps {
     open: boolean;

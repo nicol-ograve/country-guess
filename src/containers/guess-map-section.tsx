@@ -3,7 +3,7 @@ import { GuessInput } from '../components/guess-input/guess-input';
 import { WorldMap } from '../components/map';
 import countriesData from '../data/countries-data';
 import { CountryGuess } from '../store/models/country-guess';
-import { FlagGuess } from '../components/flag-input/flag-guess-input';
+import { FlagGuessInput } from '../components/flag-input/flag-guess-input';
 
 import './guess-map-section.scss';
 import { shuffleArray } from '../utils/utils';
@@ -29,6 +29,9 @@ export const GuessMapSections = () => {
         />
         {countryGuess && <GuessInput wordGuess={countryGuess.nameGuess} />}
         {countryGuess && countryGuess.capitalGuess && <GuessInput wordGuess={countryGuess.capitalGuess} />}
-        {countryGuess && <FlagGuess key={selectedCountryId} countryCodes={countries2LCodes} />}
+        {countryGuess && <FlagGuessInput
+            key={selectedCountryId}
+            countryCodes={countries2LCodes}
+            flagGuess={countryGuess.flagGuess} />}
     </section>;
 };

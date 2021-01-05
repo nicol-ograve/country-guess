@@ -1,3 +1,5 @@
+@import '../assets/styles/colors.scss';
+
 .guess-map-section {
     display: flex;
     flex-direction: column;
@@ -17,6 +19,13 @@
 
         .guess-button {
             margin-top: 1rem;
+        }
+
+        &.guessed {
+            border: 2px solid $color-guess;
+        }
+        &.failed {
+            border: 4px solid $color-fail;
         }
     }
 
