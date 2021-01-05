@@ -66,23 +66,23 @@ export const WorldMap = (props: MapProps) => {
         zoom={[zoom]}
         onZoomEnd={handleZoomEnd}
         style={'mapbox://styles/nicol-ograve/ckjam7amk400w1ape4bhjs3d3'}>
-
-        <GeoJSONLayer
-            data={countryGeo}
-            fillPaint={countriesPaint}
-            fillOnMouseMove={onCountryHover}
-            fillOnClick={onCountryClick} />
-
-        {selectedCountryId &&
+        <>
             <GeoJSONLayer
-                data={selectedGeometry}
-                fillPaint={selectedCountryPaint} />}
+                data={countryGeo}
+                fillPaint={countriesPaint}
+                fillOnMouseMove={onCountryHover}
+                fillOnClick={onCountryClick} />
 
-        {hoveredCountryId && hoveredCountryId !== selectedCountryId &&
-            <GeoJSONLayer
-                data={hoveredGeometry}
-                fillPaint={hoveredCountryPaint} />}
+            {selectedCountryId &&
+                <GeoJSONLayer
+                    data={selectedGeometry}
+                    fillPaint={selectedCountryPaint} />}
 
+            {hoveredCountryId && hoveredCountryId !== selectedCountryId &&
+                <GeoJSONLayer
+                    data={hoveredGeometry}
+                    fillPaint={hoveredCountryPaint} />}
 
+        </>
     </Mapbox >;
 };

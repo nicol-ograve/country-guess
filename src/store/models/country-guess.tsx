@@ -1,5 +1,6 @@
 import { makeAutoObservable } from "mobx";
 import { Country } from "../../entities/country";
+import { FlagGuess } from "./flag-guess";
 import { WordGuess } from "./word-guess";
 
 export class CountryGuess {
@@ -8,7 +9,7 @@ export class CountryGuess {
 
     nameGuess: WordGuess;
     capitalGuess?: WordGuess;
-    country2LCode: string;
+    flagGuess: FlagGuess;
     
 
 
@@ -16,7 +17,7 @@ export class CountryGuess {
         this.country = country;
 
         this.nameGuess = new WordGuess(country.name, 'Country name');
-        this.country2LCode = country.code2l;
+        this.flagGuess = new FlagGuess(country.code2l);
         if(country.capital)
             this.capitalGuess = new WordGuess(country.capital, 'Capital city');
 
