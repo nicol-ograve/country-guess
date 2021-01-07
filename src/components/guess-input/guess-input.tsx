@@ -10,7 +10,8 @@ interface GuessInputProps {
 
 export const GuessInput = observer((props: GuessInputProps) => {
 
-    const { title, guessedChars, focusedCharIndex, onCharInput, onFocus, onFocusLost, undo } = props.wordGuess;
+    const { title, guessedChars, focusedCharIndex, isFailed, isGuessed,
+         onCharInput, onFocus, onFocusLost, undo, guess } = props.wordGuess;
 
     const containerRef = useRef(null);
 
@@ -22,16 +23,18 @@ export const GuessInput = observer((props: GuessInputProps) => {
     const onGuess = useCallback((e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault();
         e.stopPropagation();
+
+        guess();
+
         return false;
-        
-        console.log('a', e);
-    }, []);
+
+    }, [guess]);
 
     useEffect(() => {
 
         const onKeyDown = (event: KeyboardEvent) => {
             const key = event.key;
-            if(key.toLowerCase() === 'backspace') {
+            if (key.toLowerCase() === 'backspace') {
                 undo();
             } else if (focusedCharIndex >= 0 && key.length === 1 && key.match(/[A-zÀ-ú]/)) {
                 onCharInput(event.key);
@@ -50,11 +53,12 @@ export const GuessInput = observer((props: GuessInputProps) => {
         };
     }, [focusedCharIndex, guessedChars]);
 
-    return <div className='guess-input guess-box' onClick={click} ref={containerRef} onFocus={onFocus} onBlur={onFocusLost} tabIndex={-1}>
+    return <div className={`guess-input guess-box${isGuessed ? ' guessed' : ''}${isFailed ? ' failed' : ''}`} 
+    onClick={click} ref={containerRef} onFocus={onFocus} onBlur={onFocusLost} tabIndex={-1}>
         <span className='guess-title'>{title}</span>
         <div className='guess-chars'>
             {guessedChars.map((char, index) => <CharToGuess key={index} value={char} focused={index === focusedCharIndex} />)}
         </div>
-        <GuessButton onClick={onGuess} label={'Guess'}/>
+        <GuessButton onClick={onGuess} label={'Guess'} />
     </div>;
 });

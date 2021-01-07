@@ -3,6 +3,9 @@ import { makeAutoObservable } from "mobx";
 export class FlagGuess {
 
     private codeToGuess: string;
+
+    selectedFlagCode = '';
+
     isGuessed = false;
     isFailed = false;
     failedAttempts = 0;
@@ -12,12 +15,16 @@ export class FlagGuess {
         makeAutoObservable(this);
     }
 
-    guess(code: string) {
+    selectFlag = (code: string) => {
+        this.selectedFlagCode = code;
+    };
+
+    guess= () => {
         if (this.isGuessed) {
             return;
         }
 
-        if (code === this.codeToGuess) {
+        if (this.selectedFlagCode === this.codeToGuess) {
             this.isGuessed = true;
             this.isFailed = false;
         } else {
@@ -27,6 +34,6 @@ export class FlagGuess {
                 this.isFailed = false;
             }, 2000);
         }
-    }
+    };
 
 }

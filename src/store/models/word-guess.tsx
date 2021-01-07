@@ -10,10 +10,13 @@ export class WordGuess {
     focusedCharIndex = -1;
 
     filled = false;
-    guessed = false;
+
+    isGuessed = false;
+    isFailed = false;
+    failedAttempts = 0;
 
     constructor(wordToGuess: string, title = '') {
-        this.wordToGuess = wordToGuess;
+        this.wordToGuess = wordToGuess.toLowerCase();
         this.title = title;
 
         // In "guessedChars" all charactes except white spaces are replaced with empty strings
@@ -23,7 +26,7 @@ export class WordGuess {
 
     onCharInput = (input: string) => {
 
-        if (!this.guessed && this.focusedCharIndex < this.wordToGuess.length) {
+        if (!this.isGuessed && this.focusedCharIndex < this.wordToGuess.length) {
 
             this.guessedChars[this.focusedCharIndex] = input;
             this.focusedCharIndex += 1;
@@ -36,7 +39,7 @@ export class WordGuess {
     };
 
     undo = () => {
-        if (!this.guessed && this.focusedCharIndex > 0) {
+        if (!this.isGuessed && this.focusedCharIndex > 0) {
             this.focusedCharIndex -= 1;
             this.guessedChars[this.focusedCharIndex] = '';
 
@@ -50,4 +53,22 @@ export class WordGuess {
     };
     onFocusLost = () => { this.focusedCharIndex = -1; };
 
+    guess = () => {
+
+
+        if (this.isGuessed) {
+            return;
+        }
+
+        if (this.guessedChars.join('').toLowerCase() === this.wordToGuess) {
+            this.isGuessed = true;
+            this.isFailed = false;
+        } else {
+            this.failedAttempts += 1;
+            this.isFailed = true;
+            setTimeout(() => {
+                this.isFailed = false;
+            }, 2000);
+        }
+    };
 }

@@ -7,31 +7,37 @@ import { FlagGuessInput } from '../components/flag-input/flag-guess-input';
 
 import './guess-map-section.scss';
 import { shuffleArray } from '../utils/utils';
+import { CountriesStore } from '../store/countries-store';
+import { observer } from 'mobx-react';
 
+interface GuessMapSectionsProps {
+    store: CountriesStore;
+}
 
-export const GuessMapSections = () => {
+export const GuessMapSections = observer(({ store }: GuessMapSectionsProps) => {
 
-    const [selectedCountryId, setSelectedCountryId] = useState('');
-    const clearSelectedCountry = useCallback(() => setSelectedCountryId(''), [setSelectedCountryId]);
+    const {selectedCountry, selectCountry, clearSelectedCountry} = store;
 
     const countryGuess = useMemo(
-        () => selectedCountryId ? new CountryGuess(countriesData[selectedCountryId]) : undefined,
-        [selectedCountryId]
+        () => selectedCountry ? new CountryGuess(selectedCountry) : undefined,
+        [selectedCountry]
     );
 
     const countries2LCodes = shuffleArray(Object.values(countriesData).map(country => country.code2l));
 
+
+
     return <section className='guess-map-section'>
         <WorldMap
-            selectedCountryId={selectedCountryId}
-            selectCountry={setSelectedCountryId}
+            selectedCountryId={selectedCountry?.code3l}
+            selectCountry={selectCountry}
             clearSelectedCountry={clearSelectedCountry}
         />
         {countryGuess && <GuessInput wordGuess={countryGuess.nameGuess} />}
         {countryGuess && countryGuess.capitalGuess && <GuessInput wordGuess={countryGuess.capitalGuess} />}
         {countryGuess && <FlagGuessInput
-            key={selectedCountryId}
+            key={selectedCountry?.code3l}
             countryCodes={countries2LCodes}
             flagGuess={countryGuess.flagGuess} />}
     </section>;
-};
+});

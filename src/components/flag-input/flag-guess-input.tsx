@@ -18,27 +18,25 @@ const EmptyFlag = () => {
 
 
 export const FlagGuessInput = observer(({ countryCodes, flagGuess }: FlagGuessInputProps) => {
-    const [selectedFlagCountryCode, setSelectedFlag] = useState('');
     const [isPickerShown, setShowPicker] = useState(false);
 
-    const { isGuessed, isFailed } = flagGuess;
-    console.log('FAIl', isFailed);
+    const { selectedFlagCode, isGuessed, isFailed, selectFlag } = flagGuess;
 
-    const guess = useCallback(() => { flagGuess.guess(selectedFlagCountryCode); }, []);
-    const showPicker = useCallback(() => { setShowPicker(true); }, []);
-    const closePicker = useCallback(() => { setShowPicker(false); }, []);
+    const guess = useCallback(() => { flagGuess.guess(); }, []);
+    const showPicker = useCallback(() => { setShowPicker(true); }, [setShowPicker]);
+    const closePicker = useCallback(() => { setShowPicker(false); }, [setShowPicker]);
 
     const onFlagPicked = useCallback((code: string) => {
-        setSelectedFlag(code);
+        selectFlag(code);
         setShowPicker(false);
-    }, []);
+    }, [selectFlag, setShowPicker]);
 
     return <div className={`flag-guess guess-box${isGuessed ? ' guessed' : ''}${isFailed ? ' failed' : ''}`}>
         <span className='guess-title'>Flag</span>
         <div className='flag-image' onClick={showPicker}>
-            {selectedFlagCountryCode ?
+            {selectedFlagCode ?
                 <svg className="flag-icon">
-                    <use href={'#' + selectedFlagCountryCode} />
+                    <use href={'#' + selectedFlagCode} />
                 </svg> : <EmptyFlag />}
         </div>
         <GuessButton onClick={guess} label='Guess' />

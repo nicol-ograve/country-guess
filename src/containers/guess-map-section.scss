@@ -1,6 +1,7 @@
 @import '../assets/styles/colors.scss';
 
 .guess-map-section {
+
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -22,7 +23,7 @@
         }
 
         &.guessed {
-            border: 2px solid $color-guess;
+            border: 4px solid $color-guess;
         }
         &.failed {
             border: 4px solid $color-fail;
