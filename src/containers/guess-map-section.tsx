@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import { GuessInput } from '../components/guess-input/guess-input';
 import { WorldMap } from '../components/map';
 import countriesData from '../data/countries-data';
