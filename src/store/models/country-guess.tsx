@@ -10,11 +10,13 @@ export class CountryGuess {
     nameGuess: WordGuess;
     capitalGuess?: WordGuess;
     flagGuess: FlagGuess;
+
+    code3l: string;
     
-
-
     constructor(country: Country) {
         this.country = country;
+
+        this.code3l = country.code3l;
 
         this.nameGuess = new WordGuess(country.name, 'Country name');
         this.flagGuess = new FlagGuess(country.code2l);

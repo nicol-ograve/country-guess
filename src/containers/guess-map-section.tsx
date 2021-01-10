@@ -1,8 +1,7 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { GuessInput } from '../components/guess-input/guess-input';
 import { WorldMap } from '../components/map';
 import countriesData from '../data/countries-data';
-import { CountryGuess } from '../store/models/country-guess';
 import { FlagGuessInput } from '../components/flag-input/flag-guess-input';
 
 import './guess-map-section.scss';
@@ -16,16 +15,9 @@ interface GuessMapSectionsProps {
 
 export const GuessMapSections = observer(({ store }: GuessMapSectionsProps) => {
 
-    const {selectedCountry, selectCountry, clearSelectedCountry} = store;
-
-    const countryGuess = useMemo(
-        () => selectedCountry ? new CountryGuess(selectedCountry) : undefined,
-        [selectedCountry]
-    );
+    const { selectedCountry, selectCountry, clearSelectedCountry } = store;
 
     const countries2LCodes = shuffleArray(Object.values(countriesData).map(country => country.code2l));
-
-
 
     return <section className='guess-map-section'>
         <WorldMap
@@ -33,11 +25,12 @@ export const GuessMapSections = observer(({ store }: GuessMapSectionsProps) => {
             selectCountry={selectCountry}
             clearSelectedCountry={clearSelectedCountry}
         />
-        {countryGuess && <GuessInput wordGuess={countryGuess.nameGuess} />}
-        {countryGuess && countryGuess.capitalGuess && <GuessInput wordGuess={countryGuess.capitalGuess} />}
-        {countryGuess && <FlagGuessInput
+        {selectedCountry && <GuessInput wordGuess={selectedCountry.nameGuess} />}
+        {selectedCountry && selectedCountry.capitalGuess && <GuessInput wordGuess={selectedCountry.capitalGuess} />}
+        {selectedCountry && <FlagGuessInput
             key={selectedCountry?.code3l}
             countryCodes={countries2LCodes}
-            flagGuess={countryGuess.flagGuess} />}
+            flagGuess={selectedCountry.flagGuess} />}
+
     </section>;
 });

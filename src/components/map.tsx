@@ -4,10 +4,11 @@ import ReactMapboxGl, { GeoJSONLayer } from 'react-mapbox-gl';
 import countryGeo from '../data/countries.geo';
 import geometryMap from '../data/countries-geometry-map';
 import { Map } from 'mapbox-gl';
+import { observer } from 'mobx-react';
 
 const Mapbox = ReactMapboxGl({
     doubleClickZoom: false,
-    accessToken: 'pk.eyJ1Ijoibmljb2wtb2dyYXZlIiwiYSI6ImNrNHB3N29vMjA5dmgzZXFxNXltbmV4cTMifQ.XZsepxjFzRn2JXkw4pp8mQ'
+    accessToken: process.env.REACT_APP_ACCESS_TOKEN || ''
 });
 
 interface MapProps {
@@ -16,7 +17,7 @@ interface MapProps {
     clearSelectedCountry: () => void;
 }
 
-export const WorldMap = (props: MapProps) => {
+export const WorldMap = observer((props: MapProps) => {
 
     const { selectedCountryId, selectCountry, clearSelectedCountry } = props;
     const [hoveredCountryId, handleCountryHover] = useState<string | undefined>(undefined);
@@ -85,4 +86,4 @@ export const WorldMap = (props: MapProps) => {
 
         </>
     </Mapbox >;
-};
+});

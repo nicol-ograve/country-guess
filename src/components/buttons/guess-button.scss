@@ -3,13 +3,13 @@
 .guess-button {
     cursor: pointer;
 
-    border: 3px solid $color-guess;
-    color: $color-guess;
+    border: 3px solid black;
+    color: black;
     font-weight: bold;
 
 
     &:hover{
         color: white;
-        background-color: $color-guess;
+        background-color: #c0c0c0;
     }
 }
