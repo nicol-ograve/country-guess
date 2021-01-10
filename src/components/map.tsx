@@ -8,8 +8,6 @@ import { Map } from 'mapbox-gl';
 import { observer } from 'mobx-react';
 
 //@ts-ignore
-import mapboxgl from 'mapbox-gl/dist/mapbox-gl';
-//@ts-ignore
 import MapboxWorker from 'mapbox-gl/dist/mapbox-gl-csp-worker';
 
 
@@ -19,7 +17,6 @@ const Mapbox = ReactMapboxGl({
     doubleClickZoom: false,
     accessToken: process.env.REACT_APP_ACCESS_TOKEN || ''
 });
-mapboxgl.workerClass = MapboxWorker;
 //@ts-ignore
 Mapbox.workerClass = MapboxWorker;
 
