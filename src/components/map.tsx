@@ -1,15 +1,27 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import ReactMapboxGl, { GeoJSONLayer } from 'react-mapbox-gl';
 
+
 import countryGeo from '../data/countries.geo';
 import geometryMap from '../data/countries-geometry-map';
 import { Map } from 'mapbox-gl';
 import { observer } from 'mobx-react';
 
+//@ts-ignore
+import mapboxgl from 'mapbox-gl/dist/mapbox-gl';
+//@ts-ignore
+import MapboxWorker from 'mapbox-gl/dist/mapbox-gl-csp-worker';
+
+
+
+
 const Mapbox = ReactMapboxGl({
     doubleClickZoom: false,
     accessToken: process.env.REACT_APP_ACCESS_TOKEN || ''
 });
+mapboxgl.workerClass = MapboxWorker;
+//@ts-ignore
+Mapbox.workerClass = MapboxWorker;
 
 interface MapProps {
     selectedCountryId?: string;
