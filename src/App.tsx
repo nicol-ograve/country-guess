@@ -5,7 +5,7 @@ import { ReactComponent as Flags } from './assets/images/sprite.symbol.svg';
 import './App.scss';
 import { CountriesStore } from './store/countries-store';
 
-const storedCountries = localStorage.getItem('countries');
+// const storedCountries = localStorage.getItem('countries');
 // const countriesStore = storedCountries ? JSON.parse(storedCountries) : new CountriesStore();
 const countriesStore = new CountriesStore();
 
