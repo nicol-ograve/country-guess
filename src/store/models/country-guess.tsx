@@ -13,6 +13,7 @@ export class CountryGuess {
 
     code3l: string;
 
+    guessedAmount = 0;
 
     constructor(country: Country) {
         this.country = country;
@@ -21,8 +22,9 @@ export class CountryGuess {
 
         this.nameGuess = new WordGuess(country.name, 'Country name');
         this.flagGuess = new FlagGuess(country.code2l);
-        if (country.capital)
+        if (country.capital) {
             this.capitalGuess = new WordGuess(country.capital, 'Capital city');
+        }
 
         makeAutoObservable(this);
     }

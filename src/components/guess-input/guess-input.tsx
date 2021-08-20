@@ -34,7 +34,7 @@ export const GuessInput = observer((props: GuessInputProps) => {
 
         const onKeyDown = (event: KeyboardEvent) => {
             const key = event.key;
-            if (key.toLowerCase() === 'backspace') {
+            if (key.toLowerCase() === 'backspace' && focusedCharIndex > 0 && guessedChars[focusedCharIndex - 1] !== ' ') {
                 undo();
             } else if (focusedCharIndex >= 0 && key.length === 1 && key.match(/[A-zÀ-ú]/)) {
                 onCharInput(event.key);
