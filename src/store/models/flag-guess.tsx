@@ -1,17 +1,26 @@
 import { makeAutoObservable } from "mobx";
+import { QuestionGuessStatus } from "./question";
 
-export class FlagGuess {
+export class FlagGuess implements QuestionGuessStatus {
 
-    private codeToGuess: string;
+    codeToGuess: string;
+
+    isGuessed: boolean;
+    failedAttempts: number;
 
     selectedFlagCode = '';
 
-    isGuessed = false;
     isFailed = false;
-    failedAttempts = 0;
 
-    constructor(codeToGuess: string) {
+    constructor(codeToGuess: string, status?: QuestionGuessStatus) {
         this.codeToGuess = codeToGuess;
+        this.isGuessed = status?.isGuessed ?? false;
+        this.failedAttempts = status?.failedAttempts ?? 0;
+
+        if(this.isGuessed) {
+            this.selectedFlagCode = codeToGuess;
+        }
+
         makeAutoObservable(this);
     }
 
@@ -19,7 +28,7 @@ export class FlagGuess {
         this.selectedFlagCode = code;
     };
 
-    guess= () => {
+    guess = () => {
         if (this.isGuessed) {
             return;
         }

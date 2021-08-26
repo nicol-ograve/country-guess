@@ -2,22 +2,25 @@ import React, { useEffect } from 'react';
 import { GuessMapSections } from './containers/guess-map-section';
 import { ReactComponent as Flags } from './assets/images/sprite.symbol.svg';
 
-import './App.scss';
 import { CountriesStore } from './store/countries-store';
 
-// const storedCountries = localStorage.getItem('countries');
-// const countriesStore = storedCountries ? JSON.parse(storedCountries) : new CountriesStore();
+import './App.scss';
+
 const countriesStore = new CountriesStore();
 
 function App() {
 
   useEffect(() => {
+    const cleanup = () => {
+      countriesStore.persist();
+    };
+
+    window.addEventListener('beforeunload', cleanup);
 
     return () => {
-      console.log('STORE');
-      localStorage.setItem('countries', JSON.stringify(countriesStore));
+      window.removeEventListener('beforeunload', cleanup);
     };
-  });
+  }, []);
 
   return (
     <div className="App">

@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react';
 import React, { useCallback, useEffect, useRef } from 'react';
-import { WordGuess } from '../../store/models/word-guess';
+import WordGuess from '../../store/models/word-guess';
 import { GuessButton } from '../buttons/guess-button';
 import { CharToGuess } from './char-to-guess';
 

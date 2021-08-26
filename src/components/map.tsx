@@ -64,7 +64,6 @@ export const WorldMap = observer((props: MapProps) => {
         'fill-outline-color': 'rgb(150, 150, 0)'
     }), []);
 
-    console.log('COUNTRIES', guessedCountries);
     const guessedCountriesGeometry = useMemo(() => guessedCountries?.map(item => ({
         percentage: item.guessedPercentage,
         code: item.code3l,

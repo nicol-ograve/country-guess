@@ -1,11 +1,12 @@
 import { computed, makeAutoObservable } from "mobx";
 import { Country } from "../../entities/country";
 import { FlagGuess } from "./flag-guess";
-import { WordGuess } from "./word-guess";
+import { QuestionGuessStatus } from "./question";
+import WordGuess from "./word-guess";
 
 export class CountryGuess {
 
-    private country: Country;
+    country: Country;
 
     nameGuess: WordGuess;
     capitalGuess?: WordGuess;
@@ -15,15 +16,19 @@ export class CountryGuess {
 
     guessedAmount = 0;
 
-    constructor(country: Country) {
+    constructor(country: Country,
+        flagCode?: string,
+        nameGuessStatus?: QuestionGuessStatus,
+        capitalGuessStatus?: QuestionGuessStatus,
+        flagGuessStatus?: QuestionGuessStatus) {
         this.country = country;
 
         this.code3l = country.code3l;
 
-        this.nameGuess = new WordGuess(country.name, 'Country name');
-        this.flagGuess = new FlagGuess(country.code2l);
+        this.nameGuess = new WordGuess(country.name, 'Country name', nameGuessStatus);
+        this.flagGuess = new FlagGuess(flagCode || country.code2l, flagGuessStatus);
         if (country.capital) {
-            this.capitalGuess = new WordGuess(country.capital, 'Capital city');
+            this.capitalGuess = new WordGuess(country.capital, 'Capital city', capitalGuessStatus);
         }
 
         makeAutoObservable(this);
