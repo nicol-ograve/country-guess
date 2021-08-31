@@ -16,6 +16,8 @@ export default class WordGuess implements QuestionGuessStatus {
 
     isFailed = false;
 
+    private hasFocus = false;
+
     constructor(wordToGuess: string, title = '', status?: QuestionGuessStatus) {
         this.wordToGuess = wordToGuess.toLowerCase();
         this.title = title;
@@ -24,14 +26,27 @@ export default class WordGuess implements QuestionGuessStatus {
         this.failedAttempts = status?.failedAttempts ?? 0;
 
         // In "guessedChars" all charactes except white spaces are replaced with empty strings
-        this.guessedChars = this.isGuessed 
-        ? this.wordToGuess.split('')
-        : wordToGuess.split('').map(char => char === ' ' ? char : '');
+        this.guessedChars = this.isGuessed
+            ? this.wordToGuess.split('')
+            : wordToGuess.split('').map(char => char === ' ' ? char : '');
         makeAutoObservable(this);
     }
 
-    onCharInput = (input: string) => {
+    moveFocusRight = () => {
+        if (this.focusedCharIndex !== -1)
+            this.focusedCharIndex = (this.focusedCharIndex + 1) % this.wordToGuess.length;
+    };
 
+    moveFocusLeft = () => {
+        if (this.focusedCharIndex !== -1)
+            this.focusedCharIndex =
+                (this.focusedCharIndex + this.wordToGuess.length - 1) % this.wordToGuess.length;
+    };
+
+    onCharInput = (input: string) => {
+        if (!this.hasFocus) {
+            return;
+        }
         if (!this.isGuessed && this.focusedCharIndex < this.wordToGuess.length) {
 
             this.guessedChars[this.focusedCharIndex] = input;
@@ -54,10 +69,17 @@ export default class WordGuess implements QuestionGuessStatus {
     };
 
     onFocus = () => {
+        console.log('HasFocus');
+        this.hasFocus = true;
         const firstEmptyChar = this.guessedChars.findIndex(char => char === '');
         this.focusedCharIndex = firstEmptyChar > 0 ? firstEmptyChar : 0;
     };
-    onFocusLost = () => { this.focusedCharIndex = -1; };
+
+    onFocusLost = () => {
+        console.log('LostFocus');
+        this.hasFocus = false;
+        this.focusedCharIndex = -1;
+    };
 
     guess = () => {
 

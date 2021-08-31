@@ -11,7 +11,7 @@ interface GuessInputProps {
 export const GuessInput = observer((props: GuessInputProps) => {
 
     const { title, guessedChars, focusedCharIndex, isFailed, isGuessed,
-         onCharInput, onFocus, onFocusLost, undo, guess } = props.wordGuess;
+         onCharInput, onFocus, onFocusLost, undo, guess, moveFocusLeft, moveFocusRight } = props.wordGuess;
 
     const containerRef = useRef(null);
 
@@ -33,9 +33,14 @@ export const GuessInput = observer((props: GuessInputProps) => {
     useEffect(() => {
 
         const onKeyDown = (event: KeyboardEvent) => {
-            const key = event.key;
-            if (key.toLowerCase() === 'backspace' && focusedCharIndex > 0 && guessedChars[focusedCharIndex - 1] !== ' ') {
+            const key = event.key.toLowerCase();
+            
+            if (key === 'backspace' && focusedCharIndex > 0 && guessedChars[focusedCharIndex - 1] !== ' ') {
                 undo();
+            } else if(key.toLowerCase() == 'arrowright'){
+                moveFocusRight();
+            }  else if(key.toLowerCase() == 'arrowleft'){
+                moveFocusLeft();
             } else if (focusedCharIndex >= 0 && key.length === 1 && key.match(/[A-zÀ-ú]/)) {
                 onCharInput(event.key);
 

@@ -12,4 +12,7 @@ equalFlagsMap.set("WF", "FR");
 
 equalFlagsMap.set("UM", "US");
 
+equalFlagsMap.set("SJ", "NO");
+equalFlagsMap.set("BV", "NO");
+
 export default equalFlagsMap;
